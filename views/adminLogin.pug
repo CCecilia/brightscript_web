@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    .container
+        form.form-signin(method='POST')
+            .text-center.mb-4
+                img.mb-4(src='/images/brs_icon.png', alt='', width='72', height='72')
+                h1.h3.mb-3.font-weight-normal.roku-font Admin Login
+                .row.text-danger.text-center
+                    if errors 
+                        ul
+                            for error in errors
+                                li!= error.msg
+            .form-label-group
+                input#inputEmail.form-control(type='email', placeholder='Email address', required='true', autofocus='', name='email')
+                label(for='inputEmail') Email address
+            .form-label-group
+                input#inputPassword.form-control(type='password', placeholder='Password', required='true', name='password')
+                label(for='inputPassword') Password
+            button.btn.btn-lg.btn-roku.btn-block(type='submit') Sign in
+            p.mt-5.mb-3.text-center.roku-font © 2017-2018

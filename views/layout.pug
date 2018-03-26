@@ -1,7 +1,44 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        title BrightScript Tuts
+        //- Bootstrap core CSS
+        link(href='/stylesheets/bootstrap.min.css', rel='stylesheet')
+        //- Font
+        link(href="https://fonts.googleapis.com/css?family=Share+Tech", rel="stylesheet")
+        //- Custom styles
+        link(href='/stylesheets/style.css', rel='stylesheet')
+    body
+        nav.navbar.navbar-expand-md.navbar-dark.roku-bg.fixed-top
+            a.navbar-brand(href='/') 
+                img.img-thumbnail(src='/images/brs_icon.png')
+                |BrightScript Tuts
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar', aria-controls='navbar', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbar.collapse.navbar-collapse
+                form.form-inline.my-2.my-lg-0
+                    input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
+                    button.btn.btn-outline-roku-purple.my-2.my-sm-0(type='submit') 
+                        i.fa.fa-search
+                ul.navbar-nav.mr-auto
+                    li.nav-item.dropdown
+                        a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Tutorials
+                        .dropdown-menu(aria-labelledby='dropdown01')
+                            a.dropdown-item(href='#') Language related
+                            a.dropdown-item(href='#') Channel
+                    li.nav-item
+                        a.nav-link(href='#') References
+                    li.nav-item.active
+                        a.nav-link(href='#') Sign In
+                            span.sr-only (current)
+                    
+        block content
+        script(src='/javascripts/jquery.min.js')
+        script(src='https://use.fontawesome.com/releases/v5.0.8/js/solid.js', integrity='sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l', crossorigin='anonymous')
+        script(src='https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js', integrity='sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c', crossorigin='anonymous')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q', crossorigin='anonymous')
+        script(src='/javascripts/bootstrap.min.js')
