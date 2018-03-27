@@ -26,4 +26,12 @@ UserSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
+UserSchema.virtual('dashboard').get(function () {
+    if( this.admin ) {
+        return `/admin/dashboard/${this._id}/`
+    } else {
+        return `/users/dashboard/${this._id}/`
+    }
+});
+
 module.exports = mongoose.model('User', UserSchema);

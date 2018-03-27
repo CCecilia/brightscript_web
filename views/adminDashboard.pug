@@ -1,0 +1,149 @@
+extends adminlayout
+
+block content
+    .content
+        .container-fluid
+            .row
+                .col-md-4
+                    .card
+                        .card-header
+                            h4.card-title Email Statistics
+                            p.card-category Last Campaign Performance
+                        .card-body
+                            #chartPreferences.ct-chart.ct-perfect-fourth
+                        .card-footer
+                            .legend
+                                i.fa.fa-circle.text-info
+                                |  Open
+                                i.fa.fa-circle.text-danger
+                                |  Bounce
+                                i.fa.fa-circle.text-warning
+                                |  Unsubscribe
+                            hr
+                            .stats
+                                i.fa.fa-clock-o
+                                |  Campaign sent 2 days ago
+                .col-md-8
+                    .card
+                        .card-header
+                            h4.card-title Users Behavior
+                            p.card-category 24 Hours performance
+                        .card-body
+                            #chartHours.ct-chart
+                        .card-footer
+                            .legend
+                                i.fa.fa-circle.text-info
+                                |  Open
+                                i.fa.fa-circle.text-danger
+                                |  Click
+                                i.fa.fa-circle.text-warning
+                                |  Click Second Time
+                            hr
+                            .stats
+                                i.fa.fa-history
+                                |  Updated 3 minutes ago
+            .row
+                .col-md-6
+                    .card
+                        .card-header
+                            h4.card-title 2017 Sales
+                            p.card-category All products including Taxes
+                        .card-body
+                            #chartActivity.ct-chart
+                        .card-footer
+                            .legend
+                                i.fa.fa-circle.text-info
+                                |  Tesla Model S
+                                i.fa.fa-circle.text-danger
+                                |  BMW 5 Series
+                            hr
+                            .stats
+                                i.fa.fa-check
+                                |  Data information certified
+                .col-md-6
+                    .card.card-tasks
+                        .card-header
+                            h4.card-title Tasks
+                            p.card-category Backend development
+                        .card-body
+                            .table-full-width
+                                table.table
+                                    tbody
+                                        tr
+                                            td
+                                                .form-check
+                                                    label.form-check-label
+                                                        input.form-check-input(type='checkbox', value='')
+                                                        span.form-check-sign
+                                            td Sign contract for "What are conference organizers afraid of?"
+                                            td.td-actions.text-right
+                                                button.btn.btn-info.btn-simple.btn-link(type='button', rel='tooltip', title='Edit Task')
+                                                    i.fa.fa-edit
+                                                button.btn.btn-danger.btn-simple.btn-link(type='button', rel='tooltip', title='Remove')
+                                                    i.fa.fa-times
+                                        tr
+                                            td
+                                                .form-check
+                                                    label.form-check-label
+                                                        input.form-check-input(type='checkbox', value='', checked='')
+                                                        span.form-check-sign
+                                            td Lines From Great Russian Literature? Or E-mails From My Boss?
+                                            td.td-actions.text-right
+                                                button.btn.btn-info.btn-simple.btn-link(type='button', rel='tooltip', title='Edit Task')
+                                                    i.fa.fa-edit
+                                                button.btn.btn-danger.btn-simple.btn-link(type='button', rel='tooltip', title='Remove')
+                                                    i.fa.fa-times
+                                        tr
+                                            td
+                                                .form-check
+                                                    label.form-check-label
+                                                        input.form-check-input(type='checkbox', value='', checked='')
+                                                        span.form-check-sign
+                                            td
+                                                | Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                                            td.td-actions.text-right
+                                                button.btn.btn-info.btn-simple.btn-link(type='button', rel='tooltip', title='Edit Task')
+                                                    i.fa.fa-edit
+                                                button.btn.btn-danger.btn-simple.btn-link(type='button', rel='tooltip', title='Remove')
+                                                    i.fa.fa-times
+                                        tr
+                                            td
+                                                .form-check
+                                                    label.form-check-label
+                                                        input.form-check-input(type='checkbox', checked='')
+                                                        span.form-check-sign
+                                            td Create 4 Invisible User Experiences you Never Knew About
+                                            td.td-actions.text-right
+                                                button.btn.btn-info.btn-simple.btn-link(type='button', rel='tooltip', title='Edit Task')
+                                                    i.fa.fa-edit
+                                                button.btn.btn-danger.btn-simple.btn-link(type='button', rel='tooltip', title='Remove')
+                                                    i.fa.fa-times
+                                        tr
+                                            td
+                                                .form-check
+                                                    label.form-check-label
+                                                        input.form-check-input(type='checkbox', value='')
+                                                        span.form-check-sign
+                                            td Read "Following makes Medium better"
+                                            td.td-actions.text-right
+                                                button.btn.btn-info.btn-simple.btn-link(type='button', rel='tooltip', title='Edit Task')
+                                                    i.fa.fa-edit
+                                                button.btn.btn-danger.btn-simple.btn-link(type='button', rel='tooltip', title='Remove')
+                                                    i.fa.fa-times
+                                        tr
+                                            td
+                                                .form-check
+                                                    label.form-check-label
+                                                        input.form-check-input(type='checkbox', value='', disabled='')
+                                                        span.form-check-sign
+                                            td Unfollow 5 enemies from twitter
+                                            td.td-actions.text-right
+                                                button.btn.btn-info.btn-simple.btn-link(type='button', rel='tooltip', title='Edit Task')
+                                                    i.fa.fa-edit
+                                                button.btn.btn-danger.btn-simple.btn-link(type='button', rel='tooltip', title='Remove')
+                                                    i.fa.fa-times
+                        .card-footer
+                            hr
+                            .stats
+                                i.now-ui-icons.loader_refresh.spin
+                                |  Updated 3 minutes ago

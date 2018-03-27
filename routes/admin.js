@@ -8,4 +8,7 @@ router.get('/', admin_controller.login);
 // Login Form
 router.post('/', admin_controller.login_handler);
 
+// Dashboard
+router.get('/dashboard/:id', admin_controller.dashboard);
+
 module.exports = router;

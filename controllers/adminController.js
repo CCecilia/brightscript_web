@@ -30,6 +30,9 @@ exports.login_handler = [
                 if (!user || !user.validPassword(req.body.password)) {
                     res.render('adminLogin', { errors: [{msg: 'Incorrect username/password'}]});
                     return;
+                } else if ( !user.admin ) {
+                    res.render('adminLogin', { errors: [{msg: 'Incorrect permissions'}]});
+                    return;
                 } else {
                     req.session.user = user;
                     res.redirect(user.dashboard);
@@ -38,3 +41,8 @@ exports.login_handler = [
         }
     }
 ];
+
+// Dashboard
+exports.dashboard = (req, res) => {
+    res.render('adminDashboard');
+};
