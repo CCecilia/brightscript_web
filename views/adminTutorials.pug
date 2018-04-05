@@ -1,0 +1,33 @@
+extends adminlayout
+
+block content
+    .content
+        .container-fluid
+            .row
+                .col-md-12
+                    .card
+                        .card-header(data-background-color='purple')
+                            .row
+                                .col-md-6.text-left
+                                    h3.title Tutorials
+                                .col-md-6.text-right
+                                    a(href='/admin/tutorials/create')
+                                        i.fa.fa-plus.fa-2x
+                        .card-content.table-responsive
+                            .row
+                            if tutorials
+                                
+                                table#tutorial-table.table
+                                    thead
+                                        th ID
+                                        th Name
+                                    tbody
+                                        for tutorial in tutorials 
+                                            tr.clickable
+                                                td #{tutorial._id} 
+                                                td #{tutorial.cover_title}
+                            else
+                                
+                                .row
+                                    .col-md-12.text-center
+                                        h3 No Tutorals added yet

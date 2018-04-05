@@ -1,0 +1,93 @@
+extends adminlayout
+
+block content
+    .content
+        .container-fluid
+            .tutorial-side-menu
+                .dropdown.show-dropdown
+                    a(href='#', data-toggle='modal', data-target='#tutorialMenuModal')
+                        i.fa.fa-cog.fa-2x
+            
+            .row#tutorial
+                .col-md-3.clickable
+                    .card#tutorial-cover-saved
+                        .card-header.text-center
+                            h3.text-center.roku-font#cover-title Tutorial Cover 
+                            label.disabled Cover
+                        .card-body
+                            .row
+                                img#cover-image-saved.step-image(src='/images/roku.png')
+                            button#edit-tutorial-cover.btn.btn-warning.card-btn(type='button') Edit
+                            button#remove-tutorial-cover.btn.btn-danger.card-btn(type='button') Remove
+                            .clearfix
+                
+            .row
+                .col-md-12
+                    .card#tutorial-cover
+                        .card-header
+                            h3.text-center.roku-font Tutorial Cover 
+                        .card-body
+                            .row
+                                .col-md-12
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Image
+                                        label.btn.btn-roku.btn-file.cover-image-uplaod-btn Add Cover Image
+                                            input#cover-image.hidden(type='file',  accept='image/*;capture=camera')
+                                .col-md-12
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Title 
+                                        input.form-control(type='text', placeholder='Title', required='true', name='cover_title')
+                                .col-md-12
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Description 
+                                    .row
+                                        textarea.textarea-full(rows='4', placeholder='Description', required='true', name='cover_description')
+                            button#add-tutorial-cover.btn.btn-roku.pull-right(type='button') Add
+                            .clearfix
+            .row
+                .col-md-12
+                    .card#tutorial-step.hidden
+                        .card-header
+                            h3.text-center.roku-font Add A Step 
+                        .card-body
+                            .row
+                                .col-md-12
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Image
+                                        label.btn.btn-roku.btn-file.cover-image-uplaod-btn Add Step Image
+                                            input#step-image.hidden(type='file',  accept='image/*;capture=camera')
+                                            input#step-image-data(type='hidden')
+                                            
+                                .col-md-12
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Title 
+                                        input.form-control(type='text', placeholder='Title', required='true', name='step_title') 
+                                .col-md-12
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Description 
+                                    .row
+                                        textarea.textarea-full(rows='4', placeholder='Description', required='true', name='step_description')
+                            button#add-tutorial-step.btn.btn-roku.pull-right(type='button') Add Step
+                            .clearfix
+            // Menu Modal
+            #tutorialMenuModal.modal.fade.modal-sm(tabindex='-1', role='dialog', aria-labelledby='tutorialMenuLabel', aria-hidden='true')
+                .modal-dialog(role='dialog')
+                    .modal-content
+                        .modal-header
+                            h5#tutorialMenuLabel.modal-title Tutorial Options
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                span(aria-hidden='true') ×
+                        .modal-body
+                            .row
+                                .col-md-12
+                                    button#publish-tutorial.btn.btn-success.btn-lg.btn-block Publish Tutorial
+                            hr
+                            .row
+                                .col-md-12
+                                    button#delete-tutorial.btn.btn-danger.btn-lg.btn-block Delete Tutorial

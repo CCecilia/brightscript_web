@@ -5331,3 +5331,69 @@ License - nucleoapp.com/license/
 }
 
 /* all icon font classes list here */
+
+/* Bright Script Tuts Custom */
+.cover-image-uplaod-btn{
+	width: 100%;
+}
+
+.btn-roku {
+    color: #FFF;
+    background-color: #662d91;
+}
+
+.btn-roku:hover {
+    color: #FFF;
+    background-color: #451e63;
+}
+
+#tutorial-cover {
+    position: relative;
+}
+
+.step-image {
+    width: 98%;
+    height: auto;
+    margin: 1% auto;
+}
+
+#tutorial-cover-saved {
+    display: none;
+}
+
+ .roku-font {
+     color: #662d91;
+ }
+
+.textarea-full {
+     width: 97%;
+     margin: 1% auto;
+ }
+
+.hidden {
+    display: none
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.card-btn {
+    width: 98%;
+    margin: 1% auto;
+}
+
+.tutorial-side-menu {
+    position: fixed;
+    top: 30%;
+    right: 0;
+    width: 64px;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1031;
+    border-radius: 8px 0 0 8px;
+    text-align: center;
+}
+
+#tutorialMenuModal {
+    margin:0 auto;
+}
