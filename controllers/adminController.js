@@ -76,16 +76,31 @@ exports.tutorials = (req, res, next) => {
     });
 };
 
-// Tutorials:Create
+// Tutorials: Create
 exports.tutorial_create = (req, res) => {
-    let template_context = {
-        location: 'Tutorial Create',
-        user: req.session.user
-    }
-    res.render('adminTutorialCreate', template_context);
+    async.parallel({
+        categories: (callback) => {
+            Category.find()
+            .sort({name: 1})
+            .exec(callback);
+        }
+    }, (err, results) => {
+        if(err){
+            debug(`error @ tutorial create: ${err}`);
+            return next(err);
+        }
+
+        let template_context = {
+            location: 'Tutorial Create',
+            user: req.session.user,
+            categories: results.categories
+        }
+        res.render('adminTutorialCreate', template_context);
+    });
+
 };
 
-// Tutorials:Update
+// Tutorials: Update
 exports.tutorial_update = (req, res) => {
     //  Update/Create
     if( req.body._id ) {
@@ -93,7 +108,8 @@ exports.tutorial_update = (req, res) => {
             cover_title: req.body.cover_title,
             cover_description: req.body.cover_description,
             cover_image: req.body.cover_image,
-            steps: req.body.steps
+            steps: req.body.steps,
+            published: req.body.published
         };
 
         Tutorial.findByIdAndUpdate(
@@ -144,23 +160,33 @@ exports.tutorial_update = (req, res) => {
     }
 };
 
-// Tutorials:Publish
-exports.tutorial_publish = (req, res) => {
-    console.log(req.body._id);
-    Tutorial.findByIdAndUpdate(
-        req.body._id,
-        {published: true},
-        (err, results) => {
-            console.log(results);
-            if(err) {
-                debug(`error @ update tutorial: ${err}`);
-                res.json({status: 500, error_msg: err.msg});
-            }
-
-            res.json({status: 200})
+// Tutorials: Tutorial
+exports.tutorial = (req, res) => {
+    async.parallel({
+        tutorial: (callback) => {
+            Tutorial.findById(req.params.id)
+            .populate('category', 'name')
+            .exec(callback);
+        },
+        categories: (callback) => {
+            Category.find()
+            .sort({name: 1})
+            .exec(callback);
         }
-    );
-    res.json({status: 200});
+    }, (err, results) => {
+        if(err){
+            debug(`error @ tutorial: ${err}`);
+            return next(err);
+        }
+
+        let template_context = {
+            location: 'Tutorials',
+            user: req.session.user,
+            tutorial: results.tutorial,
+            categories: results.categories
+        }
+        res.render('adminTutorial', template_context);
+    });
 };
 
 // Categories

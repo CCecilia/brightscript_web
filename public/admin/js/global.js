@@ -2,7 +2,9 @@ const tutorial = {
     cover_title: null,
     cover_image: null,
     cover_description: null,
-    steps: []
+    steps: [],
+    published: false,
+    category: null
 };
 
 let order_number = 1;
@@ -64,8 +66,8 @@ $(document).ready(function() {
     // Tutorials: table row click
     $( '#tutorial-table tbody' ).on('click', 'tr', function() {
         let data = tutorial_table.row( this ).data();
-        console.log(`tutorial: ${data[0]}`);
-        // window.location = window.location.protocol + "//" + window.location.host + "/retailEnergyProviders/details/"+data[0]
+        // redirect 
+        window.location = window.location.protocol + "//" + window.location.host + "/admin/tutorials/"+data[0]
     });
 
     // Create Tutorial: Handle cover image
@@ -229,28 +231,51 @@ $(document).ready(function() {
             });
         }
 
-        $.ajax({
-            type: "POST",
-            url: "/admin/tutorials/publish/",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(tutorial),
-            success: (callback) => {
-                $.notify({
-                    message: 'Tutorial published'
-                },{
-                    type: 'success'
-                });
-            },
-            fail: () => {
-                $.notify({
-                    message: 'unknown server error'
-                },{
-                    type: 'danger'
-                });
-            }
-        });
+        // publish
+        tutorial.published = true;
 
+        // Save data
+        saveTutorial(tutorial);
+
+        // toggle btns
+        $( '#publish-tutorial, #unpublish-tutorial').toggle();
+    });
+
+    // Create Tutorial: Unpublish
+    $( '#unpublish-tutorial' ).click( (e) => {
+        if( !tutorial._id ) {
+            $.notify({
+                message: 'Tutorial has no data'
+            },{
+                type: 'danger'
+            });
+        }
+
+        // publish
+        tutorial.published = false;
+
+        // Save data
+        saveTutorial(tutorial);
+
+        // toggle btns
+        $( '#publish-tutorial, #unpublish-tutorial').toggle();
+    });
+
+    // Create Tutorial: category pick
+    $( '#tutorial-category-picker' ).on('change', function (e) {
+        if( !tutorial._id ) {
+            $.notify({
+                message: 'Tutorial has no data'
+            },{
+                type: 'danger'
+            });
+        }
+
+        tutorial.category = $( '#tutorial-category-picker option:selected' ).val();
+        console.log(tutorial);
+
+        // Save data
+        saveTutorial(tutorial);
     });
 
     // Categories: table
@@ -264,6 +289,7 @@ $(document).ready(function() {
         console.log(`tutorial: ${data[0]}`);
         // window.location = window.location.protocol + "//" + window.location.host + "/retailEnergyProviders/details/"+data[0]
     });
+
     // Categories: create form
     $( 'form[name="create_category"]' ).submit(function (e) {
         // stop submission

@@ -3,11 +3,12 @@ extends adminlayout
 block content
     .content
         .container-fluid
+            //- side menu
             .tutorial-side-menu
                 .dropdown.show-dropdown
                     a(href='#', data-toggle='modal', data-target='#tutorialMenuModal')
                         i.fa.fa-cog.fa-2x
-            
+            //- added cover
             .row#tutorial
                 .col-md-3.clickable
                     .card#tutorial-cover-saved
@@ -20,7 +21,7 @@ block content
                             button#edit-tutorial-cover.btn.btn-warning.card-btn(type='button') Edit
                             button#remove-tutorial-cover.btn.btn-danger.card-btn(type='button') Remove
                             .clearfix
-                
+            //- add cover form
             .row
                 .col-md-12
                     .card#tutorial-cover
@@ -47,6 +48,7 @@ block content
                                         textarea.textarea-full(rows='4', placeholder='Description', required='true', name='cover_description')
                             button#add-tutorial-cover.btn.btn-roku.pull-right(type='button') Add
                             .clearfix
+            //- Add step form
             .row
                 .col-md-12
                     .card#tutorial-step.hidden
@@ -75,7 +77,7 @@ block content
                                         textarea.textarea-full(rows='4', placeholder='Description', required='true', name='step_description')
                             button#add-tutorial-step.btn.btn-roku.pull-right(type='button') Add Step
                             .clearfix
-            // Menu Modal
+            //- Menu Modal for side menu
             #tutorialMenuModal.modal.fade.modal-sm(tabindex='-1', role='dialog', aria-labelledby='tutorialMenuLabel', aria-hidden='true')
                 .modal-dialog(role='dialog')
                     .modal-content
@@ -86,8 +88,13 @@ block content
                         .modal-body
                             .row
                                 .col-md-12
-                                    button#publish-tutorial.btn.btn-success.btn-lg.btn-block Publish Tutorial
-                            hr
+                                    .form-group.text-center.roku-font
+                                        label(for='tutorial-category-picker') Category
+                                        select#tutorial-category-picker.form-control.roku-font
+                                            option Select Category
+                                            for category in categories
+                                                option(value=category._id) #{category.name}
                             .row
                                 .col-md-12
-                                    button#delete-tutorial.btn.btn-danger.btn-lg.btn-block Delete Tutorial
+                                    button#publish-tutorial.btn.btn-roku.btn-lg.btn-block Publish
+                                    button#unpublish-tutorial.btn.btn-danger.btn-lg.btn-block.hidden Unpublish 

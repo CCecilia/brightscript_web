@@ -9,25 +9,25 @@ router.get('/', admin_controller.login);
 // Login Form
 router.post('/', admin_controller.login_handler);
 
-// Dashboard page
+// Dashboard
 router.get('/dashboard', requireLogin, admin_controller.dashboard);
 
 // Tutorials
 router.get('/tutorials', requireLogin, admin_controller.tutorials);
 
-// Tutorials:create page
+// Tutorials: create page
 router.get('/tutorials/create', requireLogin, admin_controller.tutorial_create);
 
-// Tutorial:update call
+// Tutorial: update
 router.post('/tutorials/update',  admin_controller.tutorial_update);
 
-// Tutorial:publish call
-router.post('/tutorials/publish',  admin_controller.tutorial_publish);
+// Tutorial: tutorial
+router.get('/tutorials/:id', admin_controller.tutorial);
 
-// Tutorial:categories
+// Tutorial: categories
 router.get('/categories',  admin_controller.categories);
 
-// Tutorial:categories create
+// Tutorial: categories create
 router.put('/categories/new',  admin_controller.category_new);
 
 module.exports = router;
