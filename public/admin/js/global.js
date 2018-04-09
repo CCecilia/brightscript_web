@@ -9,6 +9,7 @@ const tutorial = {
 
 let order_number = 1;
 
+// Create Tutorial: save tut
 function saveTutorial(tutorial) {
     $.ajax({
         type: "POST",
@@ -43,6 +44,7 @@ function saveTutorial(tutorial) {
     });
 }
 
+// Create Tutorial: step
 function tutorialStep(title, description, order_number, image='/images/roku.png') {
     this.title = title;
     this.description = description;
@@ -50,11 +52,59 @@ function tutorialStep(title, description, order_number, image='/images/roku.png'
     this.image = image;
 }
 
+// Global
 function inputError(input) {
     input.css('border', '1px solid red').focus();
     setTimeout(() => {
         input.css('border', '');
     }, 3000);
+}
+
+// Create Tutorial: Edit step
+function editStep(step_id) {
+    for( let i = 0; i < tutorial.steps.length; i++ ){
+        if( tutorial.steps[i].order_number === step_id ) {
+            // Alter add step
+            $( '#tutorial-step .card-header h3' ).text('Edit Step');
+            $( '#step-image-data' ).val(tutorial.steps[i].image);
+            $( 'input[name="step_title"]' ).val(tutorial.steps[i].title);
+            $( 'textarea[name="step_description"]' ).val(tutorial.steps[i].description);
+            $( '#save-edit-tutorial-step, #add-tutorial-step, #cancel-edit-tutorial-step' ).toggle();
+            $( '#save-edit-tutorial-step' ).attr('data-id', step_id);
+        }
+    }
+}
+
+// Create Tutorial: reset step card
+function resetStepCard() {
+    // Reset Add step card
+    $( '#tutorial-step .card-header h3' ).text('Add A Step');
+    $( '#step-image-data' ).val('');
+    $( 'input[name="step_title"]' ).val('');
+    $( 'textarea[name="step_description"]' ).val('');
+    $( '#save-edit-tutorial-step, #add-tutorial-step, #cancel-edit-tutorial-step' ).toggle();
+    $( '#save-edit-tutorial-step' ).attr('data-id', '');
+}
+
+// Create Tutorial: Remove step
+function removeStep(step_id) {
+    for( let i = 0; i < tutorial.steps.length; i++ ){
+        if( tutorial.steps[i].order_number === step_id ) {
+            // remove steps
+            tutorial.steps.splice(i, 1);
+        }
+    }
+
+    // reset order_numbers
+    let reset_count = 0;
+
+    for( let i = 0; i < tutorial.steps.length; i++ ){
+        tutorial.steps[i].order_number === reset_count;
+        reset_count ++;
+    }
+
+    order_number = reset_count;
+    console.log(tutorial, order_number);
 }
 
 $(document).ready(function() {
@@ -66,7 +116,7 @@ $(document).ready(function() {
     // Tutorials: table row click
     $( '#tutorial-table tbody' ).on('click', 'tr', function() {
         let data = tutorial_table.row( this ).data();
-        // redirect 
+        // redirect
         window.location = window.location.protocol + "//" + window.location.host + "/admin/tutorials/"+data[0]
     });
 
@@ -123,7 +173,7 @@ $(document).ready(function() {
             opacity: '.3'
         });
         $( '#tutorial-cover' ).fadeOut(400, () => {
-            $( '#cover-title' ).text(tutorial.title);
+            $( '#cover-title' ).text(tutorial.cover_title);
             $( '#cover-image-saved' ).attr('src', tutorial.cover_image);
             saveTutorial(tutorial);
             $( '#tutorial-cover-saved' ).fadeIn(1000);
@@ -132,7 +182,18 @@ $(document).ready(function() {
 
         // set focus to step title
         $( 'input[name="step_title"]' ).focus();
-        console.log(tutorial);
+    });
+
+    // Create Tutorial: Edit cover
+    $( '#edit-tutorial-cover' ).click((e) => {
+        $( '#tutorial-cover-saved' ).fadeOut(1000);
+        $( '#tutorial-step' ).slideUp(1000);
+        $( '#tutorial-cover' ).fadeIn(400);
+        $( '#tutorial-cover' ).animate({
+            width: '100%',
+            left: '',
+            opacity: '1'
+        });
     });
 
     // Create Tutorial: Handle step image
@@ -156,7 +217,6 @@ $(document).ready(function() {
 
     // Create Tutorial: Add Step
     $( '#add-tutorial-step' ).click((e) => {
-        console.log('add step clicked');
         let title_input = $( 'input[name="step_title"]' );
         let description_input = $( 'textarea[name="step_description"]' );
         let image_input = $( '#step-image-data' );
@@ -194,15 +254,15 @@ $(document).ready(function() {
         // add html
         let step_html = `
             <div class="col-md-3 clickable">
-                <div id="#tutorial-step-saved" class="card" data-id="${step.order_number}">
+                <div class="card tutorial-step-saved" data-id="${step.order_number}">
                     <div class="card-header text-center">
-                        <h3 class="text-center roku-font step-title">${step.title}</h3>
-                        <label class="disabled">Step ${step.order_number}</label>
+                        <h3 class="text-center roku-font step-title" data-id="${step.order_number}">${step.title}</h3>
+                        <label class="disabled order_number" data-id="${step.order_number}">Step ${step.order_number}</label>
                     <div class="card-body">
                         <div class="row">
-                            <img class="step-image" src="${step.image}"/>
-                            <button class="edit-step btn btn-warning card-btn" type="button" data-id="${step.order_number}">Edit</button>
-                            <button class="remove-step btn btn-danger card-btn" type="button" data-id="${step.order_number}">Remove</button>
+                            <img class="step-image" src="${step.image}" data-id="${step.order_number}"/>
+                            <button class="btn btn-warning card-btn clickable" onclick="editStep(${step.order_number})">Edit</button>
+                            <button class="btn btn-danger card-btn clickable"  onclick="removeStep(${step.order_number})">Remove</button>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -217,8 +277,34 @@ $(document).ready(function() {
 
         // set focus to step title
         $( 'input[name="step_title"]' ).focus();
-
         console.log(tutorial);
+    });
+
+    // Create Tutorial: Save Edit step
+    $( '#save-edit-tutorial-step' ).click(function (e) {
+        let step_id = $(this).attr('data-id');
+
+        // Update step
+        for( let i = 0; i < tutorial.steps.length; i++ ){
+            if( tutorial.steps[i].order_number === step_id ) {
+                tutorial.steps[i].image = $( '#step-image-data' ).val();
+                tutorial.steps[i].title = $( 'input[name="step_title"]' ).val();
+                tutorial.steps[i].description = $( 'textarea[name="step_description"]' ).val();
+            }
+        }
+
+        // update step Card
+        $( `.step-title[data-id=${step_id}]` ).text($( 'input[name="step_title"]' ).val());
+        $( `.step-image[data-id=${step_id}]` ).attr('src', $( '#step-image-data' ).val());
+
+        // Save Edits/ Reset Card
+        saveTutorial(tutorial);
+        resetStepCard();
+    });
+
+    // Create Tutorial: Cancel Edit step
+    $( '#cancel-edit-tutorial-step' ).click( (e) => {
+        resetStepCard();
     });
 
     // Create Tutorial: Publish
@@ -229,6 +315,16 @@ $(document).ready(function() {
             },{
                 type: 'danger'
             });
+            return;
+        }
+
+        if( !tutorial.category ) {
+            $.notify({
+                message: 'Tutorial needs a category first'
+            },{
+                type: 'info'
+            });
+            return;
         }
 
         // publish

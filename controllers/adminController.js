@@ -147,7 +147,6 @@ exports.tutorial_update = (req, res) => {
             // add step to tutorial
             new_tutorial.steps.push(new_step);
         }
-        console.log(new_tutorial);
 
         // save new tutorial
         new_tutorial.save((err) => {

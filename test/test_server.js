@@ -132,15 +132,53 @@ describe('Admin', function() {
             done();
         });
     });
-    });
 
-    // test admin tutorials
-    it('should retrieve admin tutorials on / GET', function(done) {
+    // test admin tutorial create page
+    it('should retrieve admin tutorial create on / GET', function(done) {
         chai.request(server)
         .get('/admin/tutorials/create')
         .end(function(err, res){
             res.should.have.status(200);
             res.should.be.html;
+            done();
+        });
+    });
+
+    // test admin tutorial create
+    it('should retrieve admin tutorial create on / POST', function(done) {
+        chai.request(server)
+        .post('/admin/tutorials/update')
+        .send({
+            cover_title: 'Test Title',
+            cover_image: '/images/roku.png',
+            cover_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            published: false,
+            steps: [
+                {
+                    title: 'step 1',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    image: '/images/roku.png',
+                    order_number: 1,
+
+                },
+                {
+                    title: 'step 2',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    image: '/images/roku.png',
+                    order_number: 2,
+
+                },
+                {
+                    title: 'step 3',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    image: '/images/roku.png',
+                    order_number: 3,
+
+                }
+            ]
+        })
+        .end(function(err, res) {
+            res.should.have.status(200);
             done();
         });
     });

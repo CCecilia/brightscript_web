@@ -19,7 +19,6 @@ block content
                             .row
                                 img#cover-image-saved.step-image(src='/images/roku.png')
                             button#edit-tutorial-cover.btn.btn-warning.card-btn(type='button') Edit
-                            button#remove-tutorial-cover.btn.btn-danger.card-btn(type='button') Remove
                             .clearfix
             //- add cover form
             .row
@@ -76,6 +75,8 @@ block content
                                     .row
                                         textarea.textarea-full(rows='4', placeholder='Description', required='true', name='step_description')
                             button#add-tutorial-step.btn.btn-roku.pull-right(type='button') Add Step
+                            button#save-edit-tutorial-step.btn.btn-roku.pull-right.hidden(type='button') Save Edit
+                            button#cancel-edit-tutorial-step.btn.btn-danger.pull-right.hidden(type='button') Cancel
                             .clearfix
             //- Menu Modal for side menu
             #tutorialMenuModal.modal.fade.modal-sm(tabindex='-1', role='dialog', aria-labelledby='tutorialMenuLabel', aria-hidden='true')
