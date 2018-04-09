@@ -117,7 +117,6 @@ exports.tutorial_update = (req, res) => {
             update,
             {upsert: true},
             (err, results) => {
-                 console.log(results);
                  if(err) {
                      debug(`error @ update tutorial: ${err}`);
                      res.json({status: 500, error_msg: err.msg});
@@ -197,7 +196,7 @@ exports.categories = (req, res) => {
             .exec(callback);
         }
     }, (err, results) => {
-        if(err){
+        if(err) {
             debug(`error @ category list: ${err}`);
             return next(err);
         }
@@ -209,8 +208,7 @@ exports.categories = (req, res) => {
         };
         res.render('adminCategories', template_context);
     });
-
-}
+};
 
 // Categories: create
 exports.category_new = (req, res) => {
@@ -224,7 +222,8 @@ exports.category_new = (req, res) => {
         if(err){
             debug(`error @ create category: ${err}`);
             res.json({status: 500, error_msg: 'category failed to save'});
+        } else {
+            res.json({status: 200});
         }
-        res.json({status: 200});
     });
 };

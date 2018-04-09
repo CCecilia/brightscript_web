@@ -4,6 +4,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../app');
 const User = require('../models/user');
+const Tutorial = require('../models/tutorial');
 const should = chai.should();
 const expect = chai.expect;
 chai.use(chaiHttp);
@@ -182,4 +183,66 @@ describe('Admin', function() {
             done();
         });
     });
+
+    // test admin tutorial update
+    it('should retrieve admin tutorial create on / POST', function(done) {
+        Tutorial.findOne()
+        .exec(function(err, tutorial) {
+            chai.request(server)
+            .post('/admin/tutorials/update')
+            .send({
+                _id: tutorial._id,
+                cover_title: 'Test Title Edited',
+                cover_image: '/images/roku.png',
+                cover_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Edited.',
+                published: true,
+                steps: [
+                    {
+                        title: 'step 1 edited',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Edited.',
+                        image: '/images/roku.png',
+                        order_number: 1,
+
+                    },
+                    {
+                        title: 'step 2 edited',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Edited.',
+                        image: '/images/roku.png',
+                        order_number: 2,
+
+                    }
+                ]
+            })
+            .end(function(err, res) {
+                res.should.have.status(200);
+                done();
+            });
+        });
+    });
+
+    // test admin categories create
+    it('should retrieve admin categories create on / PUT', function(done) {
+        chai.request(server)
+        .put('/admin/categories/new')
+        .send({
+            name: 'Test Category',
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            done();
+        });
+    });
+
+    // test admin categories
+    it('should retrieve admin tutorials on / GET', function(done) {
+        chai.request(server)
+        .get('/admin/categories')
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.html;
+            done();
+        });
+    });
+
+
 });
