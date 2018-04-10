@@ -2,4 +2,21 @@ extends layout
 
 block content
     .container
-        h1 Bright Script testing
+        .row
+            for tutorial in tutorials
+                .tutorial-cover-card
+                    .row
+                        .col-12.text-center
+                            img.tutorial-cover-img(src=tutorial.cover_image)
+                    .row
+                        .col-12
+                            h4.roku-font.text-center #{tutorial.cover_title}
+                    .row
+                        .col-12
+                            if tutorial.cover_description.length > 220
+                                p #{tutorial.cover_description.substr(0, 220) + '...'}
+                            else
+                                p #{tutorial.cover_description}
+                    .row
+                        .col-12.text-center
+                            a.btn.btn-roku.btn-block(href=tutorial.page, target='_blank') Start

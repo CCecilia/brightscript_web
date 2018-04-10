@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    .container
+        .row
+            nav#tutorial-step-nav
+                ul.nav.nav-pills
+                    for step in tutorial.steps
+                        li.nav-step
+                            a.step-scroll(href='#step' + step.order_number) #{step.title}
+                        li.nav-step
+                            a.step-scroll(href='#step' + step.order_number) #{step.title}
+                        li.nav-step
+                            a.step-scroll(href='#step' + step.order_number) #{step.title}
+                        li.nav-step
+                            a.step-scroll(href='#step' + step.order_number) #{step.title}
+        .row#step-wrapper
+            .col-12
+                for step in tutorial.steps
+                    div.text-center.step-card(id='#step' + step.order_number)
+                        img.step-image(src=step.image)
+                        h4.roku-font #{step.title}
+                        p #{step.description}
+
+                                    

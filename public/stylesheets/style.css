@@ -6,6 +6,7 @@
 body {
   padding: 50px;
   font: 14px "Share Tech", Helvetica, Arial, sans-serif;
+  positon: relative;
 }
 
 a {
@@ -123,57 +124,83 @@ a {
   color: #777;
 }
 
-
-/*
- * Sidebar
- */
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 0;
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+.nav-centered {
+    padding-left: 6%;
 }
 
-.sidebar-sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 48px; /* Height of navbar */
-  height: calc(100vh - 48px);
-  padding-top: .5rem;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+.nav-right {
+    padding-left: 15%;
 }
 
-.sidebar .nav-link {
-  font-weight: 500;
-  color: #FFF;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-  text-align: center;
+/* Index */
+.tutorial-cover-card {
+    width: 29%;
+    margin: 2%;
+    padding: 1%;
+    box-shadow: 0 2px 5px 0 rgba(102, 45, 145, 0.16), 0 2px 10px 0 rgba(102, 45, 145, 0.16);
 }
 
-.sidebar .nav-link .feather {
-  margin-right: 4px;
-  color: #999;
+.tutorial-cover-img {
+    width: 50%;
+    height: auto;
 }
 
-.sidebar .nav-link.active,
-.sidebar .nav-link:hover {
-    color: #662d91;
+#tutorial-step-nav {
+    width: 78%;
+    position: fixed;
+    box-shadow: 0 2px 5px 0 rgba(102, 45, 145, 0.16), 0 2px 10px 0 rgba(102, 45, 145, 0.16);
+    margin: 0 auto;
+    z-index: 999;
     background-color: #FFF;
-    border: 1px solid #662d91;
+    overflow-y: scroll;
+    max-height: 10%;
+    margin-top: -1%;
 }
 
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-  color: inherit;
+#tutorial-step-nav:hover {
+    max-height: 100%;
 }
 
-.sidebar-heading {
-  font-size: .75rem;
-  text-transform: uppercase;
+#step-wrapper {
+    margin-top: 7%;
+    position: relative;
+    z-index: 1;
+}
+
+.nav-step {
+    margin: 2%;
+    width: 10%;
+    padding: 1%;
+    text-align: center;
+    box-shadow: 0 2px 5px 0 rgba(102, 45, 145, 0.16), 0 2px 10px 0 rgba(102, 45, 145, 0.16);
+}
+
+.nav-step a {
+    color: #662d91;
+}
+
+.nav-step a:hover {
+    font-size: large;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-step.active {
+    background-color: #662d91;
+}
+
+
+.nav-step.active a {
+    color: #FFF;
+}
+
+.step-card {
+    box-shadow: 0 2px 5px 0 rgba(102, 45, 145, 0.16), 0 2px 10px 0 rgba(102, 45, 145,0.12);
+    padding: 1%;
+    margin-bottom: 2%;
+}
+
+.step-image {
+    width: 50%;
+    height: auto;
 }

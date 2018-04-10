@@ -29,4 +29,8 @@ let TutorialSchema = new Schema({
     },
 });
 
+TutorialSchema.virtual('page').get(function (){
+     return `/tutorial/${this._id}/`;
+ });
+
 module.exports = mongoose.model('Tutorial', TutorialSchema);
