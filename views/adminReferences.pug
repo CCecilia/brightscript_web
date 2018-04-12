@@ -1,0 +1,69 @@
+extends adminlayout
+
+block content
+    .content
+        .container-fluid
+            .row
+                .col-md-12
+                    .card
+                        .card-header(data-background-color='purple')
+                            .row
+                                .col-md-6.text-left
+                                    h3.title References
+                                .col-md-6.text-right
+                                    a(href='#', data-toggle='modal', data-target='#createReferenceModal')
+                                        i.fa.fa-plus.fa-2x
+                        .card-content.table-responsive
+                            .row
+                            if references
+                                
+                                table#reference-table.table
+                                    thead
+                                        //- th ID
+                                        th Name
+                                        th Url
+                                        th Description
+                                        th Date Created
+                                    tbody
+                                        for reference in references 
+                                            tr.clickable
+                                                //- td #{reference._id} 
+                                                td #{reference.name}
+                                                td 
+                                                    if reference.url.length > 45
+                                                        a(href=reference.url) #{reference.url.substr(0, 45) + '...'}
+                                                    else
+                                                        a(href=reference.url) #{reference.url}
+                                                td #{reference.description}
+                                                td.text-center #{reference.date_pretty}
+                            else
+                                
+                                .row
+                                    .col-md-12.text-center
+                                        h3 No references added yet
+        // Menu Modal
+        #createReferenceModal.modal.fade.modal-sm(tabindex='-1', role='dialog', aria-labelledby='createReferenceLabel', aria-hidden='true', style='margin: 0 auto;')
+            .modal-dialog(role='dialog')
+                .modal-content
+                    .modal-header
+                        h5#createReferenceLabel.modal-title New Reference
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                    .modal-body
+                        .row
+                            .col-md-12
+                                form(name='create_reference', action='/admin/references/new')
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Name 
+                                        input.form-control(type='text', placeholder='Name', required='true', name='name')
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Url 
+                                        input.form-control(type='text', placeholder='Url', required='true', name='url')
+                                    .form-group.text-center
+                                        label 
+                                            h4.roku-font Description 
+                                        textarea.form-control(placeholder='Description', required='false', name='description')
+                                    .form-group.text-center
+                                        button.btn.btn-success.btn-lg.btn-block(type='submit') Save

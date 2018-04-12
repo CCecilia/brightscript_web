@@ -30,4 +30,10 @@ router.get('/categories',  admin_controller.categories);
 // Tutorial: categories create
 router.put('/categories/new',  admin_controller.category_new);
 
+// Tutorial: references
+router.get('/references',  admin_controller.references);
+
+// Tutorial: references create
+router.put('/references/new',  admin_controller.reference_new);
+
 module.exports = router;

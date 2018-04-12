@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const Tutorial = require('../models/tutorial');
 const Category = require('../models/category');
+const Reference = require('../models/reference');
 const debug = require('debug')('admin');
 const async = require('async');
 
@@ -222,6 +223,49 @@ exports.category_new = (req, res) => {
         if(err){
             debug(`error @ create category: ${err}`);
             res.json({status: 500, error_msg: 'category failed to save'});
+        } else {
+            res.json({status: 200});
+        }
+    });
+};
+
+// References
+exports.references = (req, res) => {
+    async.parallel({
+        references: (callback) => {
+            Reference.find()
+            .sort({name: 1})
+            .exec(callback);
+        }
+    }, (err, results) => {
+        if(err) {
+            debug(`error @ category list: ${err}`);
+            return next(err);
+        }
+
+        let template_context = {
+            location: 'References',
+            user: req.session.user,
+            references: results.references
+        };
+        res.render('adminReferences', template_context);
+    });
+};
+
+// References: create
+exports.reference_new = (req, res) => {
+    // create new category
+    let new_reference = new Reference({
+        name: req.body.name,
+        url: req.body.url,
+        description: req.body.description
+    });
+
+    // save new reference
+    new_reference.save((err) => {
+        if(err){
+            debug(`error @ create reference: ${err}`);
+            res.json({status: 500, error_msg: 'reference failed to save'});
         } else {
             res.json({status: 200});
         }

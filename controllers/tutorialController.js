@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Tutorial = require('../models/tutorial');
 const Category = require('../models/category');
+const Reference = require('../models/reference');
 const debug = require('debug')('admin');
 const async = require('async');
 
@@ -77,7 +78,7 @@ exports.references = (req, res, next) => {
         if(err){
             debug(`error @ references: ${err}`);
             return next(err);
-        } 
+        }
 
         let template_context = {
             location: 'References',

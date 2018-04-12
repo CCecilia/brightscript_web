@@ -419,4 +419,50 @@ $(document).ready(function() {
             }
         });
     });
+
+    // References: table
+    let reference_table = $( '#reference-table' ).DataTable( {
+        stateSave: true,
+    });
+
+    // Categories: table row click
+    $( '#reference-table tbody' ).on('click', 'tr', function() {
+        let data = reference_table.row( this ).data();
+        console.log(`reference: ${data[0]}`);
+        // window.location = window.location.protocol + "//" + window.location.host + "/retailEnergyProviders/details/"+data[0]
+    });
+
+    // Categories: create form
+    $( 'form[name="create_reference"]' ).submit(function (e) {
+        // stop submission
+        e.preventDefault();
+
+        // serialize/send form
+        $.ajax({
+            type: "PUT",
+            url: $( this ).attr('action'),
+            data: $( this ).serialize(),
+            success: (callback) => {
+                if( callback.status === 200 ){
+                    // refresh table
+                    location.reload();
+                } else {
+                    // notify error
+                    $.notify({
+                        message: callback.error_msg
+                    },{
+                        type: 'danger'
+                    });
+                }
+            },
+            fail: () => {
+                // notify error
+                $.notify({
+                    message: 'unknown server error'
+                },{
+                    type: 'danger'
+                });
+            }
+        });
+    });
 });
